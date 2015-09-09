@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_group
 
   def new
@@ -6,12 +7,13 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = @group.posts.find(params[:id])
+    @post = current_user.posts.find(params[:id])
   end
 
   def create
     @post = @group.posts.build(post_params)
- 
+    @post.author = current_user
+
     if @post.save
       redirect_to group_path(@group), notice: "新增文章成功！"
     else
@@ -20,8 +22,8 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = @group.posts.find(params[:id])
- 
+    @post = current_user.posts.find(params[:id])
+
     if @post.update(post_params)
       redirect_to group_path(@group), notice: "文章修改成功！"
     else
@@ -30,14 +32,14 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = @group.posts.find(params[:id])
- 
+    @post = current_user.posts.find(params[:id])
+
     @post.destroy
     redirect_to group_path(@group), alert: "文章已刪除"
   end
 
   private
- 
+
   def post_params
     params.require(:post).permit(:content)
   end
