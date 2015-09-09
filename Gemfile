@@ -45,3 +45,5 @@ end
 
 gem 'bootstrap-sass'
 
+gem "simple_form"
+
