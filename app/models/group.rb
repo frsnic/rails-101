@@ -1,7 +1,7 @@
 class Group < ActiveRecord::Base
   validates :title, presence: { message: '不可空白' }
 
-  has_many :posts
+  has_many :posts, dependent: :destroy
 
   belongs_to :owner, class_name: "User", foreign_key: :user_id
 
