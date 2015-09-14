@@ -5,3 +5,19 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+puts "Hello World!"
+
+create_account = User.create([
+	email: 'example@gmail.com', 
+	password: '12345678', 
+	password_confirmation: '12345678', 
+	name: '測試用帳號'
+])
+
+for i in 1..5 do
+  Group.create!([title: "Group no.#{i}", description: "這是用種子建立的第 #{i} 個討論版", user_id: "1"])
+  for k in 1..10 do
+    Post.create!([group_id: "#{i}",content: "這是用種子建立的第 #{k} 個留言", user_id: "1"])
+  end
+end
